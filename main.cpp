@@ -135,9 +135,8 @@ int main() {
             long double mandel_y = y_fin - y * dPixel;
 
             int colorValue;
-            int limit = 256;
+            int limit = 512;
             if (fractalX == -1 && fractalY == -1) {
-                limit = 512;
                 colorValue = mandelbrot(mandel_x, mandel_y, limit);
             } else if (fractalX > 0 && fractalY > 0) {
                 colorValue = julia(mandel_x, mandel_y, fractalX * 0.01 + 0.2, fractalY * 0.01 + 0.2, limit);
