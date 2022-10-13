@@ -104,11 +104,8 @@ int main() {
 
     int resolution;
 
-    if (tileZ < 4) {
-        resolution = 1024;
-    } else {
-        resolution = 256;
-    }
+
+    resolution = 256;
 
 
     long double zoomFactor = pow(2, tileZ);
