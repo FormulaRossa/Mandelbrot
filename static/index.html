@@ -8,7 +8,6 @@
           crossorigin=""/>
     <link href="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/leaflet.fullscreen.css"
           rel='stylesheet'/>
-
     <style>
         #map {
             height: 300px;
@@ -19,22 +18,27 @@
 
 <body>
 <div id="map"></div>
+<script src="https://cdn.jsdelivr.net/npm/leaflet-edgebuffer@1.0.6/src/leaflet.edgebuffer.js"></script>
 <script src="https://unpkg.com/leaflet@1.9.2/dist/leaflet.js"
         integrity="sha256-o9N1jGDZrf5tS+Ft4gbIK7mYMipq9lqpVJ91xHSyKhg="
         crossorigin=""></script>
 <script src="https://api.mapbox.com/mapbox.js/plugins/leaflet-fullscreen/v1.0.1/Leaflet.fullscreen.min.js"></script>
 <script>
-    const map = L.map('map', {crs: L.CRS.Simple, maxBounds: [[-1000, -1000], [1000, 1000]]}).setView([0, 0], 0);
+    const map = L.map('map', {crs: L.CRS.Simple}).setView([0, 0], 0);
 
     L.tileLayer("/tile/{z}/{x}/{y}.png", {
         maxZoom: 31,
+        minZoom: -5,
+        minNativeZoom: 0,
         //maxNativeZoom: 40,
         tileSize: 256,
         noWrap: false,
         //maxZoom: 17,
+        edgeBufferTiles: 1
     }).addTo(map);
-
     map.addControl(new L.Control.Fullscreen());
+
+    map.on('click', onMapClick);
 </script>
 </body>
 </html>

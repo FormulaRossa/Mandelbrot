@@ -7,8 +7,23 @@
 
 using namespace std;
 
-int mandelbrot(long double real, long double imag) {
-    int limit = 1024;
+int julia(long double real, long double imag, double a, double b, int limit) {
+    long double zReal = real;
+    long double zImag = imag;
+
+    for (int i = 0; i < limit; ++i) {
+        long double r2 = zReal * zReal;
+        long double i2 = zImag * zImag;
+
+        if (r2 + i2 > 4.0) return i;
+
+        zImag = 2.0 * zReal * zImag + b;
+        zReal = r2 - i2 + a;
+    }
+    return limit;
+}
+
+int mandelbrot(long double real, long double imag, int limit) {
     long double zReal = real;
     long double zImag = imag;
 
@@ -101,9 +116,6 @@ int main() {
 
     long double dTile = 4 / zoomFactor;
 
-    long double x_start = -2.0 + dTile * tileX;
-    long double y_fin = 2.0 - dTile * tileY;
-
 
     long double dPixel = dTile / resolution;
     const char *filename = "./test.png";
@@ -111,17 +123,35 @@ int main() {
     std::vector<unsigned char> image;
     image.resize(resolution * resolution * 4);
 
+    int fractalX = floor((tileX) / zoomFactor);
+    int fractalY = floor((tileY) / zoomFactor);
+
+
+    long double x_start = -2.0 + dTile * tileX - 4 * fractalX;
+    long double y_fin = 2.0 - dTile * tileY + 4 * fractalY;
+
+
     for (int y = 0; y < resolution; y++) {
         for (int x = 0; x < resolution; x++) {
+
             long double mandel_x = x_start + x * dPixel;
             long double mandel_y = y_fin - y * dPixel;
 
-            int mandelValue = mandelbrot(mandel_x, mandel_y);
+            int colorValue;
+            int limit = 256;
+            if (fractalX == -1 && fractalY == -1) {
+                limit = 512;
+                colorValue = mandelbrot(mandel_x, mandel_y, limit);
+            } else if (fractalX > 0 && fractalY > 0) {
+                colorValue = julia(mandel_x, mandel_y, fractalX * 0.01 + 0.2, fractalY * 0.01 + 0.2, limit);
+            } else {
+                colorValue = 0;
+            }
 
-            float hue = 255 * mandelValue / 1024;
+            float hue = 255 * colorValue / limit;
             float saturation = 255;
             float value;
-            if (mandelValue < 100) {
+            if (colorValue < 100) {
                 value = 255;
             } else {
                 value = 0;
