@@ -131,6 +131,17 @@ int main() {
     for (int y = 0; y < resolution; y++) {
         for (int x = 0; x < resolution; x++) {
 
+            if (tileZ < 0) {
+                fractalX = floor((tileX) / zoomFactor);
+                fractalY = floor((tileY) / zoomFactor);
+
+                fractalX += floor(x / zoomFactor / resolution);
+                fractalY += floor(y / zoomFactor / resolution);
+
+                x_start = -2.0 + dTile * tileX - 4 * fractalX;
+                y_fin = 2.0 - dTile * tileY + 4 * fractalY;
+            }
+
             long double mandel_x = x_start + x * dPixel;
             long double mandel_y = y_fin - y * dPixel;
 
