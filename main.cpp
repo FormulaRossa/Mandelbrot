@@ -138,12 +138,9 @@ int main() {
             int limit = 512;
             if (fractalX == -1 && fractalY == -1) {
                 colorValue = mandelbrot(mandel_x, mandel_y, limit);
-            } else if (fractalX > 0 && fractalY > 0) {
-                colorValue = julia(mandel_x, mandel_y, fractalX * 0.01 + 0.2, fractalY * 0.01 + 0.2, limit);
             } else {
-                colorValue = 0;
+                colorValue = julia(mandel_x, mandel_y, fractalX * 0.01 + 0.2, fractalY * 0.01, limit);
             }
-
             float hue = 255 * colorValue / limit;
             float saturation = 255;
             float value;
