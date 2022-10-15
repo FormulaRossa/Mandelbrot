@@ -3,7 +3,7 @@ FROM debian:bullseye as build
 
 RUN apt update && apt install -y build-essential cmake
 
-COPY ./ /build/
+COPY .. /build/
 WORKDIR /build/
 
 RUN cmake .
@@ -18,8 +18,7 @@ RUN ln -s /etc/apache2/mods-available/cgi.load /etc/apache2/mods-enabled/
 
 COPY --from=build /build/Mandelbrot /usr/lib/cgi-bin/mandelbrot.cgi
 RUN rm /etc/apache2/sites-enabled/000-default.conf
-COPY conf/mandelbrot.conf /etc/apache2/sites-enabled/
-COPY static/ /var/www/html/
+COPY mandelbrot.conf /etc/apache2/sites-enabled/
 
 EXPOSE 80
 

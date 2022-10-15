@@ -2,7 +2,14 @@ version: "3.9"
 
 services:
   mandelbrot:
-    build:  .
+    image: 32874687/mandelbrot
+    build: mandelbrot/
+    expose:
+      - "80"
+  server:
+    image: 32874687/mandelbrot-server
+    build: server/
+    depends_on:
+      - mandelbrot
     ports:
       - "8080:80"
-
