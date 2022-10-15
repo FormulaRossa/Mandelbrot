@@ -150,7 +150,7 @@ int main() {
             if (fractalX == -1 && fractalY == -1) {
                 colorValue = mandelbrot(mandel_x, mandel_y, limit);
             } else {
-                colorValue = julia(mandel_x, mandel_y, fractalX * 0.01 + 0.2, fractalY * 0.01, limit);
+                colorValue = julia(mandel_x, mandel_y, fractalX * 0.01, fractalY * 0.01, limit);
             }
             float hue = 255 * colorValue / limit;
             float saturation = 255;
