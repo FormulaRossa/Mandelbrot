@@ -1,0 +1,16 @@
+---
+kind: pipeline
+name: default
+
+steps:
+  - name: build
+    image: compose:1.23.2
+    volumes:
+      - name: docker_sock
+        path: /var/run/docker.sock
+    commands:
+      - docker-compose build
+volumes:
+  - name: docker_sock
+    host:
+      path: /var/run/docker.sock
