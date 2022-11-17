@@ -4,7 +4,7 @@ name: default
 
 steps:
   - name: build
-    image: compose:1.23.2
+    image: docker/compose
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
