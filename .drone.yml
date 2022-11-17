@@ -4,7 +4,7 @@ name: default
 
 steps:
   - name: build
-    image: docker/compose
+    image: linuxserver/docker-compose
     volumes:
       - name: docker_sock
         path: /var/run/docker.sock
