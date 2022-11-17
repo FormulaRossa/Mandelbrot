@@ -3,7 +3,7 @@ FROM debian:bullseye as build
 
 RUN apt update && apt install -y build-essential cmake
 
-COPY .. /build/
+COPY . /build/
 WORKDIR /build/
 
 RUN cmake .
